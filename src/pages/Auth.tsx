@@ -43,6 +43,8 @@ const Auth = () => {
           return "Vartotojas su šiais duomenimis nerastas.";
         case "invalid_grant":
           return "Neteisingi prisijungimo duomenys.";
+        case "validation_failed":
+          return "Prašome įvesti el. pašto adresą.";
         default:
           return error.message;
       }
@@ -80,11 +82,15 @@ const Auth = () => {
                   email_label: "El. pašto adresas",
                   password_label: "Slaptažodis",
                   button_label: "Prisijungti",
+                  email_input_placeholder: "jusu@pastas.lt",
+                  password_input_placeholder: "Jūsų slaptažodis",
                 },
                 sign_up: {
                   email_label: "El. pašto adresas",
                   password_label: "Slaptažodis",
                   button_label: "Registruotis",
+                  email_input_placeholder: "jusu@pastas.lt",
+                  password_input_placeholder: "Sukurkite slaptažodį",
                 },
               },
             }}
