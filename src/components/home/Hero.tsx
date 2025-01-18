@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BUTTON_LABELS, NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Hero = () => {
   return (
@@ -8,17 +9,17 @@ const Hero = () => {
         <div className="lg:grid lg:grid-cols-12 lg:gap-8">
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
             <h1 className="text-4xl tracking-tight font-extrabold text-accent sm:text-5xl md:text-6xl">
-              Welcome to <span className="text-accent">BuildingManager</span>
+              Sveiki atvykę į <span className="text-accent">Nerūdininkų 6</span>
             </h1>
             <p className="mt-3 text-base text-gray-600 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-              Efficient apartment building management solutions for residents and property managers in Lithuania.
+              Efektyvus daugiabučio namo valdymas ir priežiūra Lietuvoje.
             </p>
             <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left">
               <Link
                 to="/announcements"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent/90 transition-colors duration-200"
               >
-                View Latest Announcements
+                {NAVIGATION_ITEMS.ANNOUNCEMENTS}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </div>
@@ -28,7 +29,7 @@ const Hero = () => {
               <div className="relative block w-full bg-secondary rounded-lg overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                  alt="Modern apartment building"
+                  alt="Daugiabutis namas"
                   className="w-full h-full object-cover"
                 />
               </div>

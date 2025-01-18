@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Home, Bell, FileText, Phone, Info, Building, AlertTriangle } from "lucide-react";
+import { NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { path: "/", label: "Home", icon: <Home className="w-5 h-5" /> },
-    { path: "/announcements", label: "Announcements", icon: <Bell className="w-5 h-5" /> },
-    { path: "/documents", label: "Documents", icon: <FileText className="w-5 h-5" /> },
-    { path: "/renovation", label: "Renovation", icon: <Building className="w-5 h-5" /> },
-    { path: "/emergency", label: "Emergency", icon: <AlertTriangle className="w-5 h-5" /> },
-    { path: "/contacts", label: "Contacts", icon: <Phone className="w-5 h-5" /> },
-    { path: "/about", label: "About", icon: <Info className="w-5 h-5" /> },
+    { path: "/", label: NAVIGATION_ITEMS.HOME, icon: <Home className="w-5 h-5" /> },
+    { path: "/announcements", label: NAVIGATION_ITEMS.ANNOUNCEMENTS, icon: <Bell className="w-5 h-5" /> },
+    { path: "/legal", label: NAVIGATION_ITEMS.LEGAL, icon: <FileText className="w-5 h-5" /> },
+    { path: "/renovation", label: NAVIGATION_ITEMS.RENOVATION, icon: <Building className="w-5 h-5" /> },
+    { path: "/emergency", label: NAVIGATION_ITEMS.EMERGENCY, icon: <AlertTriangle className="w-5 h-5" /> },
+    { path: "/contacts", label: NAVIGATION_ITEMS.CONTACTS, icon: <Phone className="w-5 h-5" /> },
+    { path: "/about", label: NAVIGATION_ITEMS.ABOUT, icon: <Info className="w-5 h-5" /> },
   ];
 
   return (
@@ -21,7 +22,7 @@ const Navigation = () => {
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-2xl font-bold text-accent">
-              BuildingManager
+              Nerūdininkų 6
             </Link>
           </div>
           
