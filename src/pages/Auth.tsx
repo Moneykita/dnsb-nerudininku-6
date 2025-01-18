@@ -73,6 +73,7 @@ const Auth = () => {
                 },
               },
             }}
+            providers={[]}
             localization={{
               variables: {
                 sign_in: {
