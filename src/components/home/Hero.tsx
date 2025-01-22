@@ -11,9 +11,6 @@ const Hero = () => {
             <h1 className="text-4xl tracking-tight font-extrabold text-accent sm:text-5xl md:text-6xl">
               Sveiki atvykę į <span className="text-accent">Nerūdininkų 6</span>
             </h1>
-            <p className="mt-3 text-base text-gray-600 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-              Efektyvus daugiabučio namo valdymas ir priežiūra Lietuvoje.
-            </p>
             <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left">
               <Link
                 to="/announcements"
@@ -28,7 +25,7 @@ const Hero = () => {
             <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
               <div className="relative block w-full bg-secondary rounded-lg overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wY8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
                   alt="Daugiabutis namas"
                   className="w-full h-full object-cover"
                 />
