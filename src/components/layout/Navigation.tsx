@@ -22,7 +22,7 @@ const Navigation = () => {
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-2xl font-bold text-accent">
-              Nerūdininkų 6
+              DNSB NERŪDININKŲ 6
             </Link>
           </div>
           
