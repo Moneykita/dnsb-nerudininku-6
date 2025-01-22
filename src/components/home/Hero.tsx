@@ -11,6 +11,9 @@ const Hero = () => {
             <h1 className="text-4xl tracking-tight font-extrabold text-accent sm:text-5xl md:text-6xl">
               Sveiki atvykę į <span className="text-accent">Nerūdininkų 6</span>
             </h1>
+            <p className="mt-3 text-base text-gray-600 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+              Efektyvus daugiabučio namo valdymas ir priežiūra Lietuvoje.
+            </p>
             <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left">
               <Link
                 to="/announcements"
@@ -33,9 +36,6 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <p className="mt-16 text-base text-gray-600 sm:mt-20 sm:text-xl lg:text-lg xl:text-xl text-center">
-          Efektyvus daugiabučio namo valdymas ir priežiūra Lietuvoje.
-        </p>
       </div>
     </div>
   );
