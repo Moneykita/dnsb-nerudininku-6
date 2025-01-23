@@ -4,11 +4,26 @@ import { NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Hero = () => {
   return (
-    <div className="relative bg-primary py-16 sm:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative min-h-[600px] bg-primary">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 w-full h-full"
+        style={{
+          backgroundImage: 'url("/lovable-uploads/e7f959a6-6c14-4d12-9d7f-514aeef86ae2.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/30"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-16 sm:py-24">
         <div className="text-center mb-12">
-          <h1 className="text-4xl tracking-tight font-extrabold text-accent sm:text-5xl md:text-6xl animate-fade-in">
-            Sveiki atvykę į <span className="text-accent">Nerūdininkų 6</span>
+          <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl animate-fade-in">
+            Sveiki atvykę į <span className="text-white">Nerūdininkų 6</span>
           </h1>
           <div className="mt-6">
             <Link
@@ -18,16 +33,6 @@ const Hero = () => {
               {NAVIGATION_ITEMS.ANNOUNCEMENTS}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
-          </div>
-        </div>
-        
-        <div className="flex justify-center">
-          <div className="w-full max-w-2xl rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-[1.02]">
-            <img
-              src="/lovable-uploads/e7f959a6-6c14-4d12-9d7f-514aeef86ae2.png"
-              alt="Daugiabutis namas"
-              className="w-full h-[400px] object-cover"
-            />
           </div>
         </div>
       </div>
