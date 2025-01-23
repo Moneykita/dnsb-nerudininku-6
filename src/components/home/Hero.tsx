@@ -24,7 +24,7 @@ const Hero = () => {
         <div className="flex justify-center">
           <div className="w-full max-w-2xl rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-[1.02]">
             <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wY8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+              src="/lovable-uploads/e7f959a6-6c14-4d12-9d7f-514aeef86ae2.png"
               alt="Daugiabutis namas"
               className="w-full h-[400px] object-cover"
             />
