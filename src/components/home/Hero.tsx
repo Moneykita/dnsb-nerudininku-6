@@ -4,7 +4,7 @@ import { NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Hero = () => {
   return (
-    <div className="relative min-h-[600px] bg-primary">
+    <div className="relative min-h-[600px] bg-gray-700">
       {/* Background Image */}
       <div 
         className="absolute inset-0 w-full h-full"
