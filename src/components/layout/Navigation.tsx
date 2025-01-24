@@ -16,11 +16,11 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-gray-700 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="text-2xl font-bold text-accent">
+            <a href="/" className="text-2xl font-bold text-white">
               DNSB NERŪDININKŲ 6
             </a>
           </div>
@@ -29,7 +29,7 @@ const Navigation = () => {
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-accent hover:bg-primary focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-gray-600 focus:outline-none"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -41,7 +41,7 @@ const Navigation = () => {
               <a
                 key={item.path}
                 href={item.path}
-                className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-accent hover:bg-primary transition-colors duration-200"
+                className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-600 transition-colors duration-200"
               >
                 {item.icon}
                 <span className="ml-2">{item.label}</span>
@@ -59,7 +59,7 @@ const Navigation = () => {
               <a
                 key={item.path}
                 href={item.path}
-                className="flex items-center px-3 py-2 rounded-md text-base font-medium text-accent hover:bg-primary block transition-colors duration-200"
+                className="flex items-center px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-600 block transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 {item.icon}
