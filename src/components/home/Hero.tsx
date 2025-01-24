@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import { NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Hero = () => {
@@ -26,13 +25,13 @@ const Hero = () => {
             Sveiki atvykę į <span className="text-white">Nerūdininkų 6</span>
           </h1>
           <div className="mt-6">
-            <Link
-              to="/announcements"
+            <a
+              href="/announcements"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent/90 transition-all duration-200 hover:scale-105"
             >
               {NAVIGATION_ITEMS.ANNOUNCEMENTS}
               <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
