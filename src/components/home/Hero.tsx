@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import { NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Hero = () => {
@@ -24,15 +23,6 @@ const Hero = () => {
           <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl animate-fade-in">
             Sveiki atvykę į <span className="text-white">Nerūdininkų 6</span>
           </h1>
-          <div className="mt-6">
-            <a
-              href="/announcements"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent/90 transition-all duration-200 hover:scale-105"
-            >
-              {NAVIGATION_ITEMS.ANNOUNCEMENTS}
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </a>
-          </div>
         </div>
       </div>
     </div>
