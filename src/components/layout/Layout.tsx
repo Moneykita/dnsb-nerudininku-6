@@ -1,18 +1,30 @@
-import Navigation from "./Navigation";
-import Footer from "./Footer";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import Navigation from "./Navigation"
+import Footer from "./Footer"
+import { AppSidebar } from "./AppSidebar"
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-700 text-white">
-      <Navigation />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </div>
-  );
-};
+    <SidebarProvider>
+      <div className="min-h-screen flex flex-col bg-gray-700 text-white w-full">
+        <Navigation />
+        <div className="flex flex-1">
+          <AppSidebar />
+          <main className="flex-grow">
+            <div className="p-4">
+              <SidebarTrigger />
+            </div>
+            {children}
+          </main>
+        </div>
+        <Footer />
+      </div>
+    </SidebarProvider>
+  )
+}
 
-export default Layout;
+export default Layout
