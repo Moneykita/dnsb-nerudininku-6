@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Home, Bell, FileText, Phone, Info, Building, AlertTriangle } from "lucide-react";
 import { NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const navItems = [
     { path: "/", label: NAVIGATION_ITEMS.HOME, icon: <Home className="w-5 h-5" /> },
@@ -20,9 +22,9 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="text-2xl font-bold text-white">
+            <Link to="/" className="text-2xl font-bold text-white">
               DNSB NERŪDININKŲ 6
-            </a>
+            </Link>
           </div>
           
           {/* Mobile menu button */}
@@ -38,14 +40,16 @@ const Navigation = () => {
           {/* Desktop menu */}
           <div className="hidden md:flex md:items-center md:space-x-4">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.path}
-                href={item.path}
-                className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-gray-600 transition-colors duration-200"
+                to={item.path}
+                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium text-white transition-colors duration-200 ${
+                  location.pathname === item.path ? 'bg-gray-600' : 'hover:bg-gray-600'
+                }`}
               >
                 {item.icon}
                 <span className="ml-2">{item.label}</span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -56,15 +60,17 @@ const Navigation = () => {
         <div className="md:hidden animate-fade-in">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.path}
-                href={item.path}
-                className="flex items-center px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-600 block transition-colors duration-200"
+                to={item.path}
+                className={`flex items-center px-3 py-2 rounded-md text-base font-medium text-white block transition-colors duration-200 ${
+                  location.pathname === item.path ? 'bg-gray-600' : 'hover:bg-gray-600'
+                }`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.icon}
                 <span className="ml-2">{item.label}</span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
