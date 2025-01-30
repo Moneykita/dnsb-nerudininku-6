@@ -19,7 +19,7 @@ const Navigation = () => {
 
   return (
     <nav className="bg-gray-700 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-2xl font-bold text-white">
@@ -38,19 +38,21 @@ const Navigation = () => {
           </div>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex md:items-center md:space-x-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium text-white transition-colors duration-200 ${
-                  location.pathname === item.path ? 'bg-gray-600' : 'hover:bg-gray-600'
-                }`}
-              >
-                {item.icon}
-                <span className="ml-2">{item.label}</span>
-              </Link>
-            ))}
+          <div className="hidden md:flex md:items-center md:justify-between md:flex-1 md:ml-10">
+            <div className="flex justify-between space-x-8 flex-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex items-center px-3 py-2 rounded-md text-sm font-medium text-white transition-colors duration-200 ${
+                    location.pathname === item.path ? 'bg-gray-600' : 'hover:bg-gray-600'
+                  }`}
+                >
+                  {item.icon}
+                  <span className="ml-2">{item.label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

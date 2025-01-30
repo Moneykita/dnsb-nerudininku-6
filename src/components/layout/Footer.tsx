@@ -3,20 +3,20 @@ import { Mail, Phone, MapPin } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="bg-accent text-white py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center text-center">
           <div>
             <h3 className="text-lg font-semibold mb-4">Susisiekite su mumis</h3>
             <div className="space-y-2">
-              <p className="flex items-center">
+              <p className="flex items-center justify-center">
                 <Phone className="w-5 h-5 mr-2" />
                 +370 123 45678
               </p>
-              <p className="flex items-center">
+              <p className="flex items-center justify-center">
                 <Mail className="w-5 h-5 mr-2" />
                 info@buildingmanager.lt
               </p>
-              <p className="flex items-center">
+              <p className="flex items-center justify-center">
                 <MapPin className="w-5 h-5 mr-2" />
                 Vilnius, Lietuva
               </p>
