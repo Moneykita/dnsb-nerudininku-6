@@ -1,6 +1,8 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
+  const googleMapsUrl = "https://maps.google.com/?q=Nerūdininkų+g.+6,+Senieji+Trakai,+21145+Trakų+r.+sav.";
+
   return (
     <footer className="bg-accent text-white py-8">
       <div className="w-full px-4 sm:px-6 lg:px-8">
@@ -14,12 +16,17 @@ const Footer = () => {
               </p>
               <p className="flex items-center justify-center">
                 <Mail className="w-5 h-5 mr-2" />
-                info@buildingmanager.lt
+                nerudininku6@gmail.com
               </p>
-              <p className="flex items-center justify-center">
+              <a 
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center hover:text-gray-200 transition-colors"
+              >
                 <MapPin className="w-5 h-5 mr-2" />
-                Vilnius, Lietuva
-              </p>
+                Nerūdininkų g. 6, Senieji Trakai
+              </a>
             </div>
           </div>
           <div>
