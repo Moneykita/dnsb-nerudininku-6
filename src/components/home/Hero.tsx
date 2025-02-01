@@ -21,21 +21,21 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-16 sm:py-24">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl animate-fade-in">
-            Sveiki atvykę į <span className="text-white">Nerūdininkų 6</span>
-          </h1>
-        </div>
-
-        {/* News Button */}
-        <div className="absolute left-8 top-1/2 transform -translate-y-1/2">
+        {/* News Button - Repositioned to left side */}
+        <div className="absolute left-8 top-32">
           <Link 
             to="/news" 
             className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all duration-300 backdrop-blur-sm animate-fade-in"
           >
-            <Newspaper className="w-5 h-5" />
-            <span>Naujienos</span>
+            <Newspaper className="w-8 h-8" />
+            <span className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl">Naujienos</span>
           </Link>
+        </div>
+
+        <div className="text-center mb-12">
+          <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl animate-fade-in">
+            Sveiki atvykę į <span className="text-white">Nerūdininkų 6</span>
+          </h1>
         </div>
       </div>
     </div>
