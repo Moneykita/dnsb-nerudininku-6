@@ -20,9 +20,9 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-16 sm:py-24">
-        {/* News Button - Moved further left and removed background */}
-        <div className="absolute left-4 top-32">
+      <div className="relative z-10 w-full mx-auto px-4 sm:px-6 lg:px-8 h-full py-16 sm:py-24">
+        <div className="flex flex-col items-center justify-center gap-16">
+          {/* News Button */}
           <Link 
             to="/news" 
             className="flex items-center gap-2 text-white transition-all duration-300 animate-fade-in"
@@ -30,9 +30,8 @@ const Hero = () => {
             <Newspaper className="w-8 h-8" />
             <span className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl">Naujienos</span>
           </Link>
-        </div>
 
-        <div className="text-center mb-12">
+          {/* Welcome Text */}
           <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl animate-fade-in">
             Sveiki atvykę į <span className="text-white">Nerūdininkų 6</span>
           </h1>
