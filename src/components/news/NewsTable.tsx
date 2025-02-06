@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Paperclip } from "lucide-react";
 import {
   Table,
@@ -30,6 +30,10 @@ const NewsTable = () => {
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
 
   const fetchNews = async () => {
     const { data, error } = await supabase

@@ -33,6 +33,30 @@ export type Database = {
         }
         Relationships: []
       }
+      news: {
+        Row: {
+          id: string
+          title: string
+          content: string
+          attachment_path: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          content: string
+          attachment_path?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          content?: string
+          attachment_path?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
