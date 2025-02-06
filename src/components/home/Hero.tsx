@@ -1,5 +1,6 @@
+
 import { NAVIGATION_ITEMS } from "@/lib/constants";
-import { Newspaper } from "lucide-react";
+import { MessageSquare, Newspaper } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -29,6 +30,15 @@ const Hero = () => {
           >
             <Newspaper className="w-8 h-8" />
             <span className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl">Naujienos</span>
+          </Link>
+
+          {/* Contact Button */}
+          <Link 
+            to="/contacts" 
+            className="flex items-center gap-2 text-white transition-all duration-300 animate-fade-in"
+          >
+            <MessageSquare className="w-8 h-8" />
+            <span className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl">Susisiekti</span>
           </Link>
 
           {/* Welcome Text */}
