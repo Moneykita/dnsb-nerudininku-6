@@ -5,7 +5,7 @@ export const NAVIGATION_ITEMS = {
   ANNOUNCEMENTS: "Skelbimai",
   LEGAL: "Teisės aktai",
   RENOVATION: "Renovacija",
-  CONTACTS: "Kontaktai",
+  CONTACTS: "Susisiekti",
   EMERGENCY: "Avarinės situacijos",
 } as const;
 
