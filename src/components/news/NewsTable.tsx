@@ -20,6 +20,7 @@ interface NewsItem {
   content: string;
   attachment_path: string | null;
   created_at: string;
+  attachment_url?: string;
 }
 
 const NewsTable = () => {
@@ -50,7 +51,18 @@ const NewsTable = () => {
       return;
     }
 
-    setNewsItems(data || []);
+    // Get attachment URLs for all items with attachments
+    const itemsWithUrls = await Promise.all((data || []).map(async (item) => {
+      if (item.attachment_path) {
+        const { data: urlData } = await supabase.storage
+          .from('news_attachments')
+          .getPublicUrl(item.attachment_path);
+        return { ...item, attachment_url: urlData.publicUrl };
+      }
+      return item;
+    }));
+
+    setNewsItems(itemsWithUrls);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,13 +120,6 @@ const NewsTable = () => {
 
   const toggleRow = (id: string) => {
     setExpandedRow(expandedRow === id ? null : id);
-  };
-
-  const getAttachmentUrl = async (path: string) => {
-    const { data } = await supabase.storage
-      .from('news_attachments')
-      .getPublicUrl(path);
-    return data.publicUrl;
   };
 
   return (
@@ -195,10 +200,10 @@ const NewsTable = () => {
                   <TableCell colSpan={3} className="bg-gray-50">
                     <div className="p-4 space-y-4">
                       <p className="whitespace-pre-wrap">{item.content}</p>
-                      {item.attachment_path && (
+                      {item.attachment_path && item.attachment_url && (
                         <div>
                           <a
-                            href={getAttachmentUrl(item.attachment_path)}
+                            href={item.attachment_url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:underline flex items-center gap-2"
