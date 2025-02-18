@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
+// Use the same structure as legal_documents since they share the same schema
 interface RenovationDocument {
   id: string;
   title: string;
@@ -26,10 +27,14 @@ const Renovation = () => {
   const { toast } = useToast();
 
   const fetchDocuments = async () => {
+    // Use type assertion since we know the structure matches
     const { data, error } = await supabase
       .from('renovation_documents')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false }) as { 
+        data: RenovationDocument[] | null; 
+        error: any; 
+      };
 
     if (error) {
       toast({
