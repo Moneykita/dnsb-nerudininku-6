@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Paperclip } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -18,9 +19,7 @@ interface NewsItem {
   id: string;
   title: string;
   content: string;
-  attachment_path: string | null;
   created_at: string;
-  attachment_url?: string;
 }
 
 const NewsTable = () => {
@@ -29,7 +28,6 @@ const NewsTable = () => {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [file, setFile] = useState<File | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -44,31 +42,14 @@ const NewsTable = () => {
 
     if (error) {
       toast({
-        title: "Error",
-        description: "Failed to fetch news items",
+        title: "Klaida",
+        description: "Nepavyko gauti naujienų sąrašo",
         variant: "destructive",
       });
       return;
     }
 
-    // Get attachment URLs for all items with attachments
-    const itemsWithUrls = await Promise.all((data || []).map(async (item) => {
-      if (item.attachment_path) {
-        const { data: urlData } = await supabase.storage
-          .from('news_attachments')
-          .getPublicUrl(item.attachment_path);
-        return { ...item, attachment_url: urlData.publicUrl };
-      }
-      return item;
-    }));
-
-    setNewsItems(itemsWithUrls);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
+    setNewsItems(data || []);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,41 +57,25 @@ const NewsTable = () => {
     setLoading(true);
 
     try {
-      let attachmentPath = null;
-
-      if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        const response = await supabase.functions.invoke('upload-news-attachment', {
-          body: formData,
-        });
-
-        if (response.error) throw new Error('Failed to upload file');
-        attachmentPath = response.data.filePath;
-      }
-
       const { error } = await supabase.from('news').insert({
         title,
         content,
-        attachment_path: attachmentPath,
       });
 
       if (error) throw error;
 
       toast({
-        title: "Success",
-        description: "News item added successfully",
+        title: "Sėkmingai pridėta",
+        description: "Naujiena sėkmingai pridėta",
       });
 
       setTitle("");
       setContent("");
-      setFile(null);
       fetchNews();
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to add news item",
+        title: "Klaida",
+        description: "Nepavyko pridėti naujienos",
         variant: "destructive",
       });
     } finally {
@@ -145,17 +110,7 @@ const NewsTable = () => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
-          />
-        </div>
-        <div>
-          <label htmlFor="file" className="block text-sm font-medium text-gray-700">
-            Prisegti failą
-          </label>
-          <Input
-            id="file"
-            type="file"
-            onChange={handleFileChange}
-            className="mt-1"
+            className="min-h-[150px]"
           />
         </div>
         <Button type="submit" disabled={loading}>
@@ -181,11 +136,8 @@ const NewsTable = () => {
                 <TableCell>
                   {new Date(item.created_at).toLocaleDateString('lt-LT')}
                 </TableCell>
-                <TableCell className="flex items-center gap-2">
+                <TableCell>
                   {item.title}
-                  {item.attachment_path && (
-                    <Paperclip className="w-4 h-4 text-gray-400" />
-                  )}
                 </TableCell>
                 <TableCell>
                   {expandedRow === item.id ? (
@@ -198,21 +150,8 @@ const NewsTable = () => {
               {expandedRow === item.id && (
                 <TableRow>
                   <TableCell colSpan={3} className="bg-gray-50">
-                    <div className="p-4 space-y-4">
+                    <div className="p-4">
                       <p className="whitespace-pre-wrap">{item.content}</p>
-                      {item.attachment_path && item.attachment_url && (
-                        <div>
-                          <a
-                            href={item.attachment_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline flex items-center gap-2"
-                          >
-                            <Paperclip className="w-4 h-4" />
-                            Atsisiųsti priedą
-                          </a>
-                        </div>
-                      )}
                     </div>
                   </TableCell>
                 </TableRow>
