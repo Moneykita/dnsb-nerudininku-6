@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, UploadCloud } from "lucide-react";
-import { FORM_LABELS, BUTTON_LABELS, ERROR_MESSAGES } from "@/lib/constants";
 
 const Contacts = () => {
   const [name, setName] = useState("");
@@ -93,7 +92,7 @@ const Contacts = () => {
           <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-lg shadow-lg p-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                {FORM_LABELS.NAME} *
+                Vardas *
               </label>
               <Input
                 id="name"
@@ -106,7 +105,7 @@ const Contacts = () => {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                {FORM_LABELS.EMAIL} *
+                El. paštas *
               </label>
               <Input
                 id="email"
@@ -120,7 +119,7 @@ const Contacts = () => {
 
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                {FORM_LABELS.MESSAGE} *
+                Žinutė *
               </label>
               <Textarea
                 id="message"
@@ -166,7 +165,7 @@ const Contacts = () => {
                   Siunčiama...
                 </>
               ) : (
-                BUTTON_LABELS.SEND
+                "Siųsti"
               )}
             </Button>
           </form>
