@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Bell, FileText, Phone, Info, Building, AlertTriangle } from "lucide-react";
+import { Menu, X, Home, Bell, FileText, Mail, Info, Building, AlertTriangle } from "lucide-react";
 import { NAVIGATION_ITEMS } from "@/lib/constants";
 
 const Navigation = () => {
@@ -13,7 +14,7 @@ const Navigation = () => {
     { path: "/legal", label: NAVIGATION_ITEMS.LEGAL, icon: <FileText className="w-5 h-5" /> },
     { path: "/renovation", label: NAVIGATION_ITEMS.RENOVATION, icon: <Building className="w-5 h-5" /> },
     { path: "/emergency", label: NAVIGATION_ITEMS.EMERGENCY, icon: <AlertTriangle className="w-5 h-5" /> },
-    { path: "/contacts", label: NAVIGATION_ITEMS.CONTACTS, icon: <Phone className="w-5 h-5" /> },
+    { path: "/contacts", label: NAVIGATION_ITEMS.CONTACTS, icon: <Mail className="w-5 h-5" /> },
     { path: "/about", label: NAVIGATION_ITEMS.ABOUT, icon: <Info className="w-5 h-5" /> },
   ];
 
