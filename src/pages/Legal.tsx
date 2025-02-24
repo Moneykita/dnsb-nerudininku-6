@@ -91,7 +91,7 @@ const Legal = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-gray-900">Teisės aktai</h1>
+        <h1 className="text-3xl font-bold mb-8 text-[#333333] px-2.5">Teisės aktai</h1>
 
         <div className="space-y-6">
           {documents.map((doc) => (

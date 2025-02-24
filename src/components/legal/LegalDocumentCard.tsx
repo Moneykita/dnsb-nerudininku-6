@@ -37,15 +37,15 @@ export const LegalDocumentCard = ({
     )}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
-          <h3 className="text-xl font-bold mb-2">
+          <h3 className="text-xl font-bold mb-2 text-[#333333] px-2.5 py-1.5">
             {documentTypeMap[document.document_type] || document.title}
-            <span className="text-gray-400 ml-1">:</span>
+            <span className="text-gray-600 ml-1">:</span>
           </h3>
           {document.description && (
-            <p className="text-gray-600 text-sm mb-3">{document.description}</p>
+            <p className="text-gray-800 text-sm mb-3 px-2.5">{document.description}</p>
           )}
           {hasDocument && (
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-gray-700 px-2.5">
               Atnaujinta: {new Date(document.last_updated_at || document.created_at).toLocaleDateString('lt-LT')}
             </div>
           )}
@@ -57,7 +57,7 @@ export const LegalDocumentCard = ({
               href={document.url || document.external_url || '#'}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 p-2"
+              className="text-blue-700 hover:text-blue-900 p-2"
             >
               {document.url ? <FileText className="w-5 h-5" /> : <ExternalLink className="w-5 h-5" />}
             </a>
