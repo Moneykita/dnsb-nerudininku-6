@@ -10,6 +10,17 @@ import {
   deleteLegalDocument 
 } from "@/services/legalService";
 
+// Define the order of document types
+const documentTypeOrder = [
+  'statute',
+  'voting',
+  'funding',
+  'technical',
+  'cleanliness',
+  'noise',
+  'pets'
+];
+
 const Legal = () => {
   const [documents, setDocuments] = useState<LegalDocument[]>([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +29,13 @@ const Legal = () => {
   const loadDocuments = async () => {
     try {
       const docs = await fetchLegalDocuments();
-      setDocuments(docs);
+      // Sort documents according to the predefined order
+      const sortedDocs = [...docs].sort((a, b) => {
+        const indexA = documentTypeOrder.indexOf(a.document_type);
+        const indexB = documentTypeOrder.indexOf(b.document_type);
+        return indexA - indexB;
+      });
+      setDocuments(sortedDocs);
     } catch (error) {
       toast({
         title: "Klaida",
@@ -74,9 +91,9 @@ const Legal = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Teisės aktai</h1>
+        <h1 className="text-3xl font-bold mb-8 text-gray-900">Teisės aktai</h1>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {documents.map((doc) => (
             <LegalDocumentCard
               key={doc.id}
