@@ -1,35 +1,45 @@
 
 import { useEffect, useState } from "react";
-import { FileText, Upload } from "lucide-react";
+import { FileText, Upload, Trash2, ExternalLink, Edit2, Eye, Save, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 interface LegalDocument {
   id: string;
   title: string;
   description: string | null;
-  document_path: string;
+  document_path: string | null;
+  external_url: string | null;
+  document_type: string;
   created_at: string;
+  last_updated_at: string;
   url?: string;
 }
 
 const Legal = () => {
   const [documents, setDocuments] = useState<LegalDocument[]>([]);
   const [loading, setLoading] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [editingDoc, setEditingDoc] = useState<LegalDocument | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [externalUrl, setExternalUrl] = useState("");
   const { toast } = useToast();
 
   const fetchDocuments = async () => {
     const { data, error } = await supabase
       .from('legal_documents')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: true });
 
     if (error) {
       toast({
@@ -42,10 +52,13 @@ const Legal = () => {
 
     // Get URLs for all documents
     const documentsWithUrls = await Promise.all((data || []).map(async (doc) => {
-      const { data: urlData } = await supabase.storage
-        .from('legal_documents')
-        .getPublicUrl(doc.document_path);
-      return { ...doc, url: urlData.publicUrl };
+      if (doc.document_path) {
+        const { data: urlData } = await supabase.storage
+          .from('legal_documents')
+          .getPublicUrl(doc.document_path);
+        return { ...doc, url: urlData.publicUrl };
+      }
+      return doc;
     }));
 
     setDocuments(documentsWithUrls);
@@ -58,39 +71,59 @@ const Legal = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
+      setExternalUrl(""); // Clear external URL when file is selected
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleUrlChange = (url: string) => {
+    setExternalUrl(url);
+    setFile(null); // Clear file when URL is entered
+  };
+
+  const handleUpdate = async (document: LegalDocument) => {
     setLoading(true);
 
     try {
-      if (!file || !title) {
-        throw new Error("Prašome užpildyti privalomus laukus");
+      let document_path = document.document_path;
+      
+      if (file) {
+        // Delete old file if exists
+        if (document.document_path) {
+          await supabase.storage
+            .from('legal_documents')
+            .remove([document.document_path]);
+        }
+
+        // Upload new file
+        const fileExt = file.name.split('.').pop();
+        document_path = `${document.document_type}/${crypto.randomUUID()}.${fileExt}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('legal_documents')
+          .upload(document_path, file);
+
+        if (uploadError) throw new Error('Nepavyko įkelti failo');
       }
 
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('title', title);
-      if (description) {
-        formData.append('description', description);
-      }
+      // Update document record
+      const { error: updateError } = await supabase
+        .from('legal_documents')
+        .update({
+          document_path: file ? document_path : null,
+          external_url: externalUrl || null,
+        })
+        .eq('id', document.id);
 
-      const response = await supabase.functions.invoke('upload-legal-document', {
-        body: formData,
-      });
-
-      if (response.error) throw new Error('Nepavyko įkelti dokumento');
+      if (updateError) throw new Error('Nepavyko atnaujinti dokumento');
 
       toast({
-        title: "Sėkmingai įkelta",
-        description: "Dokumentas buvo sėkmingai įkeltas",
+        title: "Sėkmingai atnaujinta",
+        description: "Dokumentas buvo sėkmingai atnaujintas",
       });
 
-      setTitle("");
-      setDescription("");
+      setEditingDoc(null);
       setFile(null);
+      setExternalUrl("");
       fetchDocuments();
     } catch (error) {
       toast({
@@ -103,98 +136,149 @@ const Legal = () => {
     }
   };
 
+  const handleDelete = async (document: LegalDocument) => {
+    if (!window.confirm('Ar tikrai norite ištrinti šį dokumentą?')) return;
+
+    try {
+      // Delete file from storage if exists
+      if (document.document_path) {
+        await supabase.storage
+          .from('legal_documents')
+          .remove([document.document_path]);
+      }
+
+      // Reset document record
+      const { error: updateError } = await supabase
+        .from('legal_documents')
+        .update({
+          document_path: null,
+          external_url: null,
+        })
+        .eq('id', document.id);
+
+      if (updateError) throw new Error('Nepavyko ištrinti dokumento');
+
+      toast({
+        title: "Sėkmingai ištrinta",
+        description: "Dokumentas buvo sėkmingai ištrintas",
+      });
+
+      fetchDocuments();
+    } catch (error) {
+      toast({
+        title: "Klaida",
+        description: "Nepavyko ištrinti dokumento",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">Teisės aktai</h1>
 
-        {/* Upload Form */}
-        <div className="bg-gray-800 rounded-lg p-6 mb-8">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-300">
-                Pavadinimas *
-              </label>
-              <Input
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-300">
-                Aprašymas
-              </label>
-              <Textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <label htmlFor="file" className="block text-sm font-medium text-gray-300">
-                Dokumentas *
-              </label>
-              <Input
-                id="file"
-                type="file"
-                onChange={handleFileChange}
-                className="mt-1"
-                accept=".pdf,.doc,.docx"
-              />
-            </div>
-            <Button type="submit" disabled={loading} className="w-full">
-              {loading ? (
-                "Įkeliama..."
-              ) : (
-                <>
-                  <Upload className="w-4 h-4 mr-2" />
-                  Įkelti dokumentą
-                </>
-              )}
-            </Button>
-          </form>
-        </div>
-
         {/* Documents List */}
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Dokumentų sąrašas</h2>
-          <div className="space-y-4">
-            {documents.length === 0 ? (
-              <p className="text-gray-300">Nėra įkeltų dokumentų.</p>
-            ) : (
-              documents.map((doc) => (
-                <div
-                  key={doc.id}
-                  className="flex items-start justify-between p-4 bg-gray-700 rounded-lg"
-                >
-                  <div className="flex-1">
-                    <h3 className="font-medium">{doc.title}</h3>
-                    {doc.description && (
-                      <p className="text-sm text-gray-400 mt-1">{doc.description}</p>
-                    )}
-                    <p className="text-sm text-gray-400 mt-1">
-                      Įkelta: {new Date(doc.created_at).toLocaleDateString('lt-LT')}
-                    </p>
-                  </div>
-                  {doc.url && (
-                    <a
-                      href={doc.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-blue-400 hover:text-blue-300"
-                    >
-                      <FileText className="w-4 h-4 mr-1" />
-                      Atsisiųsti
-                    </a>
+        <div className="space-y-4">
+          {documents.map((doc) => (
+            <div
+              key={doc.id}
+              className="bg-white rounded-lg shadow-md p-6"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold">{doc.title}</h3>
+                  {(doc.document_path || doc.external_url) && (
+                    <div className="mt-2 text-sm text-gray-500">
+                      Atnaujinta: {new Date(doc.last_updated_at || doc.created_at).toLocaleDateString('lt-LT')}
+                    </div>
                   )}
                 </div>
-              ))
-            )}
-          </div>
+
+                <div className="flex items-center space-x-2">
+                  {/* View/Download */}
+                  {(doc.url || doc.external_url) && (
+                    <a
+                      href={doc.url || doc.external_url || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 p-2"
+                    >
+                      {doc.url ? <FileText className="w-5 h-5" /> : <ExternalLink className="w-5 h-5" />}
+                    </a>
+                  )}
+
+                  {/* Edit Button */}
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={() => {
+                          setEditingDoc(doc);
+                          setExternalUrl(doc.external_url || '');
+                        }}
+                      >
+                        <Edit2 className="w-5 h-5" />
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent>
+                      <SheetHeader>
+                        <SheetTitle>Redaguoti dokumentą</SheetTitle>
+                        <SheetDescription>{doc.title}</SheetDescription>
+                      </SheetHeader>
+
+                      <div className="space-y-4 mt-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Įkelti dokumentą
+                          </label>
+                          <Input
+                            type="file"
+                            onChange={handleFileChange}
+                            accept=".pdf,.doc,.docx"
+                            className="mt-1"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            arba įveskite nuorodą
+                          </label>
+                          <Input
+                            type="url"
+                            value={externalUrl}
+                            onChange={(e) => handleUrlChange(e.target.value)}
+                            placeholder="https://"
+                            className="mt-1"
+                          />
+                        </div>
+
+                        <Button 
+                          onClick={() => handleUpdate(doc)} 
+                          disabled={loading || (!file && !externalUrl)}
+                          className="w-full"
+                        >
+                          {loading ? "Išsaugoma..." : "Išsaugoti"}
+                        </Button>
+                      </div>
+                    </SheetContent>
+                  </Sheet>
+
+                  {/* Delete Button */}
+                  {(doc.document_path || doc.external_url) && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDelete(doc)}
+                    >
+                      <Trash2 className="w-5 h-5 text-red-600" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </Layout>
