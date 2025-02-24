@@ -43,22 +43,31 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
-          document_path: string
+          document_path: string | null
+          document_type: string
+          external_url: string | null
           id: string
+          last_updated_at: string | null
           title: string
         }
         Insert: {
           created_at?: string
           description?: string | null
-          document_path: string
+          document_path?: string | null
+          document_type?: string
+          external_url?: string | null
           id?: string
+          last_updated_at?: string | null
           title: string
         }
         Update: {
           created_at?: string
           description?: string | null
-          document_path?: string
+          document_path?: string | null
+          document_type?: string
+          external_url?: string | null
           id?: string
+          last_updated_at?: string | null
           title?: string
         }
         Relationships: []

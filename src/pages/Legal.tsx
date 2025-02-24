@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { FileText, Upload, Trash2, ExternalLink, Edit2, Eye, Save, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
@@ -15,17 +14,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-// Define the database response type
+// Define the database response type to match our updated schema
 interface DatabaseDocument {
-  id: string;
-  title: string;
-  description: string | null;
-  document_path: string | null;
-  created_at: string;
-}
-
-// Define our complete document type
-interface LegalDocument {
   id: string;
   title: string;
   description: string | null;
@@ -34,6 +24,10 @@ interface LegalDocument {
   document_type: string;
   created_at: string;
   last_updated_at: string;
+}
+
+// Define our complete document type
+interface LegalDocument extends DatabaseDocument {
   url?: string;
 }
 
@@ -71,18 +65,10 @@ const Legal = () => {
           url = urlData.publicUrl;
         }
 
-        // Create a complete document object with default values for missing fields
         return {
-          id: doc.id,
-          title: doc.title,
-          description: doc.description,
-          document_path: doc.document_path,
-          external_url: null, // Default value for missing field
-          document_type: 'default', // Default value for missing field
-          created_at: doc.created_at,
-          last_updated_at: doc.created_at, // Use created_at as default for last_updated_at
-          url: url,
-        } as LegalDocument;
+          ...doc,
+          url
+        };
       }));
 
       setDocuments(documentsWithUrls);
