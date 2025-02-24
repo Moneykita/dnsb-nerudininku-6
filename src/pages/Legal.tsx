@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { FileText, Upload, Trash2, ExternalLink, Edit2, Eye, Save, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Sheet,
@@ -36,32 +35,51 @@ const Legal = () => {
   const { toast } = useToast();
 
   const fetchDocuments = async () => {
-    const { data, error } = await supabase
-      .from('legal_documents')
-      .select('*')
-      .order('created_at', { ascending: true });
+    try {
+      const { data, error } = await supabase
+        .from('legal_documents')
+        .select('*')
+        .order('created_at', { ascending: true });
 
-    if (error) {
+      if (error) {
+        toast({
+          title: "Klaida",
+          description: "Nepavyko gauti dokumentų sąrašo",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const documentsWithUrls = await Promise.all((data || []).map(async (doc) => {
+        let url = null;
+        if (doc.document_path) {
+          const { data: urlData } = await supabase.storage
+            .from('legal_documents')
+            .getPublicUrl(doc.document_path);
+          url = urlData.publicUrl;
+        }
+
+        return {
+          id: doc.id,
+          title: doc.title,
+          description: doc.description,
+          document_path: doc.document_path,
+          external_url: doc.external_url || null,
+          document_type: doc.document_type,
+          created_at: doc.created_at,
+          last_updated_at: doc.last_updated_at || doc.created_at,
+          url: url,
+        } as LegalDocument;
+      }));
+
+      setDocuments(documentsWithUrls);
+    } catch (error) {
       toast({
         title: "Klaida",
         description: "Nepavyko gauti dokumentų sąrašo",
         variant: "destructive",
       });
-      return;
     }
-
-    // Get URLs for all documents
-    const documentsWithUrls = await Promise.all((data || []).map(async (doc) => {
-      if (doc.document_path) {
-        const { data: urlData } = await supabase.storage
-          .from('legal_documents')
-          .getPublicUrl(doc.document_path);
-        return { ...doc, url: urlData.publicUrl };
-      }
-      return doc;
-    }));
-
-    setDocuments(documentsWithUrls);
   };
 
   useEffect(() => {
@@ -71,13 +89,13 @@ const Legal = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
-      setExternalUrl(""); // Clear external URL when file is selected
+      setExternalUrl("");
     }
   };
 
   const handleUrlChange = (url: string) => {
     setExternalUrl(url);
-    setFile(null); // Clear file when URL is entered
+    setFile(null);
   };
 
   const handleUpdate = async (document: LegalDocument) => {
@@ -87,14 +105,12 @@ const Legal = () => {
       let document_path = document.document_path;
       
       if (file) {
-        // Delete old file if exists
         if (document.document_path) {
           await supabase.storage
             .from('legal_documents')
             .remove([document.document_path]);
         }
 
-        // Upload new file
         const fileExt = file.name.split('.').pop();
         document_path = `${document.document_type}/${crypto.randomUUID()}.${fileExt}`;
 
@@ -105,12 +121,12 @@ const Legal = () => {
         if (uploadError) throw new Error('Nepavyko įkelti failo');
       }
 
-      // Update document record
       const { error: updateError } = await supabase
         .from('legal_documents')
         .update({
           document_path: file ? document_path : null,
           external_url: externalUrl || null,
+          last_updated_at: new Date().toISOString(),
         })
         .eq('id', document.id);
 
@@ -140,19 +156,18 @@ const Legal = () => {
     if (!window.confirm('Ar tikrai norite ištrinti šį dokumentą?')) return;
 
     try {
-      // Delete file from storage if exists
       if (document.document_path) {
         await supabase.storage
           .from('legal_documents')
           .remove([document.document_path]);
       }
 
-      // Reset document record
       const { error: updateError } = await supabase
         .from('legal_documents')
         .update({
           document_path: null,
           external_url: null,
+          last_updated_at: new Date().toISOString(),
         })
         .eq('id', document.id);
 
@@ -178,7 +193,6 @@ const Legal = () => {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">Teisės aktai</h1>
 
-        {/* Documents List */}
         <div className="space-y-4">
           {documents.map((doc) => (
             <div
@@ -196,7 +210,6 @@ const Legal = () => {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  {/* View/Download */}
                   {(doc.url || doc.external_url) && (
                     <a
                       href={doc.url || doc.external_url || '#'}
@@ -208,7 +221,6 @@ const Legal = () => {
                     </a>
                   )}
 
-                  {/* Edit Button */}
                   <Sheet>
                     <SheetTrigger asChild>
                       <Button 
@@ -265,7 +277,6 @@ const Legal = () => {
                     </SheetContent>
                   </Sheet>
 
-                  {/* Delete Button */}
                   {(doc.document_path || doc.external_url) && (
                     <Button
                       variant="ghost"
