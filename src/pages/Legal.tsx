@@ -90,19 +90,31 @@ const Legal = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-[#333333] px-2.5">Teisės aktai</h1>
+      <div 
+        className="min-h-screen py-8"
+        style={{
+          backgroundImage: "url('/lovable-uploads/e4dcc6cc-b29f-49a5-8ff1-d05154ee828f.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="bg-white/95 rounded-lg shadow-lg p-8">
+            <h1 className="text-3xl font-bold mb-8 text-[#333333] px-2.5">Teisės aktai</h1>
 
-        <div className="space-y-6">
-          {documents.map((doc) => (
-            <LegalDocumentCard
-              key={doc.id}
-              document={doc}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              isLoading={loading}
-            />
-          ))}
+            <div className="space-y-6">
+              {documents.map((doc) => (
+                <LegalDocumentCard
+                  key={doc.id}
+                  document={doc}
+                  onUpdate={handleUpdate}
+                  onDelete={handleDelete}
+                  isLoading={loading}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </Layout>
