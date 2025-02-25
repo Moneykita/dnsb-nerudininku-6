@@ -97,7 +97,8 @@ const Legal = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          backgroundColor: 'transparent'
+          backgroundAttachment: 'fixed',
+          backgroundColor: '#f5f5f5'
         }}
       >
         <div className="container mx-auto px-4">
