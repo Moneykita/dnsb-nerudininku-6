@@ -93,7 +93,7 @@ const Legal = () => {
       <div 
         className="min-h-screen py-8"
         style={{
-          backgroundImage: "url('/lovable-uploads/e4dcc6cc-b29f-49a5-8ff1-d05154ee828f.png')",
+          backgroundImage: "url('/lovable-uploads/cbe22da2-2784-4b22-9423-25e9740f9c6c.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
