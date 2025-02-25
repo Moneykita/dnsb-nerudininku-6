@@ -96,7 +96,8 @@ const Legal = () => {
           backgroundImage: "url('/lovable-uploads/cbe22da2-2784-4b22-9423-25e9740f9c6c.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: 'transparent'
         }}
       >
         <div className="container mx-auto px-4">
