@@ -93,12 +93,11 @@ const Legal = () => {
       <div 
         className="min-h-screen py-8"
         style={{
-          backgroundImage: "url('/lovable-uploads/cbe22da2-2784-4b22-9423-25e9740f9c6c.png')",
+          backgroundImage: "url('/lovable-uploads/76c71aa2-92bc-4eed-90bb-63e67f4c12bd.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed',
-          backgroundColor: '#f5f5f5'
+          backgroundAttachment: 'fixed'
         }}
       >
         <div className="container mx-auto px-4">
