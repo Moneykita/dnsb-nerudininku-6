@@ -92,6 +92,26 @@ const Legal = () => {
     <Layout>
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">Teisės aktai</h1>
+        
+        {/* Documents List */}
+        <div className="p-6">
+          <h2 className="text-xl font-semibold mb-4">Dokumentų sąrašas</h2>
+          <div className="space-y-4">
+            {documents.length === 0 ? (
+              <p className="text-gray-300">Nėra įkeltų dokumentų.</p>
+            ) : (
+              documents.map((doc) => (
+                <LegalDocumentCard
+                  key={doc.id}
+                  document={doc}
+                  onUpdate={handleUpdate}
+                  onDelete={handleDelete}
+                  isLoading={loading}
+                />
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </Layout>
   );
