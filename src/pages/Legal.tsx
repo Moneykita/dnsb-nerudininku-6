@@ -93,7 +93,7 @@ const Legal = () => {
       <div 
         className="min-h-screen py-8"
         style={{
-          backgroundImage: "url('/lovable-uploads/76c71aa2-92bc-4eed-90bb-63e67f4c12bd.png')",
+          backgroundImage: "url('/lovable-uploads/3a3a52d9-2ebc-4f3a-8a99-fbbcfb8d6f65.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -101,8 +101,8 @@ const Legal = () => {
         }}
       >
         <div className="container mx-auto px-4">
-          <div className="bg-white/95 rounded-lg shadow-lg p-8">
-            <h1 className="text-3xl font-bold mb-8 text-[#333333] px-2.5">Teisės aktai</h1>
+          <div className="bg-black/40 backdrop-blur-sm rounded-lg shadow-lg p-8">
+            <h1 className="text-3xl font-bold mb-8 text-white px-2.5">Teisės aktai</h1>
 
             <div className="space-y-6">
               {documents.map((doc) => (
