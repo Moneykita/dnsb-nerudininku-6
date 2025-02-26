@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { FileText, Upload } from "lucide-react";
 import Layout from "@/components/layout/Layout";
@@ -109,7 +108,7 @@ const Renovation = () => {
         <h1 className="text-3xl font-bold mb-6">Renovacija</h1>
 
         {/* Upload Form */}
-        <div className="bg-gray-800 rounded-lg p-6 mb-8">
+        <div className="p-6 mb-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-300">
@@ -157,44 +156,6 @@ const Renovation = () => {
               )}
             </Button>
           </form>
-        </div>
-
-        {/* Documents List */}
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Dokumentų sąrašas</h2>
-          <div className="space-y-4">
-            {documents.length === 0 ? (
-              <p className="text-gray-300">Nėra įkeltų dokumentų.</p>
-            ) : (
-              documents.map((doc) => (
-                <div
-                  key={doc.id}
-                  className="flex items-start justify-between p-4 bg-gray-700 rounded-lg"
-                >
-                  <div className="flex-1">
-                    <h3 className="font-medium">{doc.title}</h3>
-                    {doc.description && (
-                      <p className="text-sm text-gray-400 mt-1">{doc.description}</p>
-                    )}
-                    <p className="text-sm text-gray-400 mt-1">
-                      Įkelta: {new Date(doc.created_at).toLocaleDateString('lt-LT')}
-                    </p>
-                  </div>
-                  {doc.url && (
-                    <a
-                      href={doc.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-blue-400 hover:text-blue-300"
-                    >
-                      <FileText className="w-4 h-4 mr-1" />
-                      Atsisiųsti
-                    </a>
-                  )}
-                </div>
-              ))
-            )}
-          </div>
         </div>
       </div>
     </Layout>

@@ -1,5 +1,5 @@
-
 import { useEffect, useState } from "react";
+import { FileText } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import { useToast } from "@/hooks/use-toast";
 import { LegalDocument } from "@/types/legal";
@@ -90,29 +90,8 @@ const Legal = () => {
 
   return (
     <Layout>
-      <div 
-        className="min-h-screen py-8 bg-cover bg-center bg-no-repeat bg-fixed"
-        style={{
-          backgroundImage: "url('/lovable-uploads/1d26e0cd-cf52-4ba4-a1db-194fddc9ae67.png')"
-        }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="bg-black/40 backdrop-blur-sm rounded-lg shadow-lg p-8">
-            <h1 className="text-3xl font-bold mb-8 text-white px-2.5">Teisės aktai</h1>
-
-            <div className="space-y-6">
-              {documents.map((doc) => (
-                <LegalDocumentCard
-                  key={doc.id}
-                  document={doc}
-                  onUpdate={handleUpdate}
-                  onDelete={handleDelete}
-                  isLoading={loading}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-6">Teisės aktai</h1>
       </div>
     </Layout>
   );
