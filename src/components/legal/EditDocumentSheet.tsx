@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { LegalDocument } from "@/types/legal";
 import { Button } from "@/components/ui/button";
@@ -43,42 +42,44 @@ export const EditDocumentSheet = ({ document, onUpdate, isLoading }: EditDocumen
         <Button 
           variant="ghost" 
           size="icon"
+          className="text-blue-400 hover:text-blue-300"
         >
-          <Edit2 className="w-5 h-5" />
+          <Edit2 className="w-4 h-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-[400px] sm:w-[540px]">
+      <SheetContent className="w-[400px] sm:w-[540px] bg-gray-800 text-gray-100">
         <SheetHeader>
-          <SheetTitle>Redaguoti dokumentą</SheetTitle>
-          <SheetDescription>{document.title}</SheetDescription>
+          <SheetTitle className="text-gray-100">Redaguoti dokumentą</SheetTitle>
+          <SheetDescription className="text-gray-300">{document.title}</SheetDescription>
         </SheetHeader>
 
         <div className="space-y-6 mt-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               Aprašymas
             </label>
             <Textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Įveskite dokumento aprašymą..."
-              className="min-h-[100px]"
+              className="min-h-[100px] bg-gray-700 border-gray-600 text-gray-100"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               Įkelti dokumentą
             </label>
             <Input
               type="file"
               onChange={handleFileChange}
               accept=".pdf,.doc,.docx"
+              className="bg-gray-700 border-gray-600 text-gray-100"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               arba įveskite nuorodą
             </label>
             <Input
@@ -86,6 +87,7 @@ export const EditDocumentSheet = ({ document, onUpdate, isLoading }: EditDocumen
               value={externalUrl}
               onChange={(e) => handleUrlChange(e.target.value)}
               placeholder="https://"
+              className="bg-gray-700 border-gray-600 text-gray-100"
             />
           </div>
 
