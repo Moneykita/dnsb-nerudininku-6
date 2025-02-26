@@ -91,13 +91,9 @@ const Legal = () => {
   return (
     <Layout>
       <div 
-        className="min-h-screen py-8"
+        className="min-h-screen py-8 bg-cover bg-center bg-no-repeat bg-fixed"
         style={{
-          backgroundImage: "url('/lovable-uploads/3a3a52d9-2ebc-4f3a-8a99-fbbcfb8d6f65.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed'
+          backgroundImage: "url('/lovable-uploads/e7f959a6-6c14-4d12-9d7f-514aeef86ae2.png')"
         }}
       >
         <div className="container mx-auto px-4">
