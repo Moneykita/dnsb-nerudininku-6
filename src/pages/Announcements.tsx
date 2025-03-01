@@ -4,7 +4,7 @@ const Announcements = () => {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">Skelbimai</h1>
         <div className="p-6 bg-slate-700 rounded-xl">
-          <p className="text-gray-300">Šiuo metu skelbimų nėra.</p>
+          <p className="text-slate-50">Šiuo metu skelbimų nėra.</p>
         </div>
       </div>
     </Layout>;
