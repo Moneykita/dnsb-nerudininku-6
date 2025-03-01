@@ -30,7 +30,7 @@ export const LegalDocumentCard = ({
         <div className="flex-1">
           <h3 className="text-xl font-bold mb-2 px-2.5 py-1.5 text-gray-50">
             {documentTypeMap[document.document_type] || document.title}
-            <span className="text-gray-600 ml-1">:</span>
+            <span className="ml-1 text-slate-50">:</span>
           </h3>
           {document.description && <p className="text-gray-800 text-sm mb-3 px-2.5">{document.description}</p>}
           {hasDocument && <div className="text-sm text-gray-700 px-2.5">
