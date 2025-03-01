@@ -105,7 +105,7 @@ const Renovation = () => {
               <label htmlFor="title" className="block text-sm font-medium text-gray-300">
                 Pavadinimas *
               </label>
-              <Input id="title" value={title} onChange={e => setTitle(e.target.value)} required className="mt-1" />
+              <Input id="title" value={title} onChange={e => setTitle(e.target.value)} required className="mt-1 bg-slate-50" />
             </div>
             <div>
               <label htmlFor="description" className="block text-sm font-medium text-gray-300">
