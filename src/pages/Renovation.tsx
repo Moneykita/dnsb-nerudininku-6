@@ -111,7 +111,7 @@ const Renovation = () => {
               <label htmlFor="description" className="block text-sm font-medium text-gray-300">
                 Aprašymas
               </label>
-              <Textarea id="description" value={description} onChange={e => setDescription(e.target.value)} className="mt-1" />
+              <Textarea id="description" value={description} onChange={e => setDescription(e.target.value)} className="mt-1 bg-slate-50 rounded-xl" />
             </div>
             <div>
               <label htmlFor="file" className="block text-sm font-medium text-gray-300">
