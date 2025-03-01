@@ -28,7 +28,7 @@ export const LegalDocumentCard = ({
   return <div className="">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
-          <h3 className="text-xl font-bold mb-2 text-[#333333] px-2.5 py-1.5">
+          <h3 className="text-xl font-bold mb-2 px-2.5 py-1.5 text-gray-50">
             {documentTypeMap[document.document_type] || document.title}
             <span className="text-gray-600 ml-1">:</span>
           </h3>
