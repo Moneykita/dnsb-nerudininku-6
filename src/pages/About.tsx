@@ -1,6 +1,6 @@
 
 import Layout from "@/components/layout/Layout";
-import { Table, TableBody, TableCell, TableHeader, TableHead, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 import { FileText, Info } from "lucide-react";
 
@@ -35,12 +35,6 @@ const About = () => {
             </div>
             
             <Table>
-              <TableHeader>
-                <TableRow className="border-b border-gray-600">
-                  <TableHead className="font-medium text-white">Informacija</TableHead>
-                  <TableHead className="font-medium text-white">Reikšmė</TableHead>
-                </TableRow>
-              </TableHeader>
               <TableBody>
                 <TableRow className="border-b border-gray-600">
                   <TableCell className="font-medium text-gray-300">Gavėjas (pavadinimas)</TableCell>
