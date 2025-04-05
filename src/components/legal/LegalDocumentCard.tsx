@@ -17,7 +17,7 @@ export const LegalDocumentCard = ({
   return <div className="rounded-lg shadow-md p-6 bg-slate-700">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <h3 className="text-xl font-bold text-slate-800">{document.title}</h3>
+          <h3 className="text-xl font-bold text-gray-50">{document.title}</h3>
           {(document.document_path || document.external_url) && <div className="mt-2 text-sm text-gray-500">
               Atnaujinta: {new Date(document.last_updated_at || document.created_at).toLocaleDateString('lt-LT')}
             </div>}
