@@ -14,7 +14,7 @@ export const LegalDocumentCard = ({
   onDelete,
   isLoading
 }: LegalDocumentCardProps) => {
-  return <div className="bg-white rounded-lg shadow-md p-6">
+  return <div className="rounded-lg shadow-md p-6 bg-slate-700">
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <h3 className="text-xl font-bold text-slate-800">{document.title}</h3>
